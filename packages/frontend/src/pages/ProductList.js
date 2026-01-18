@@ -12,8 +12,15 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts()
-        const processedData = data.map(item => ({
+        const data = await getProducts();
+        console.log('getProducts returned:', data);
+        const list = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.products)
+            ? data.products
+            : [];
+
+        const processedData = list.map((item) => ({
           ...item,
           searchableText: `${item.name.toLowerCase()} ${item.price} ${item.stock}`,
           priceCategory: item.price < 50 ? 'cheap' : item.price < 100 ? 'medium' : 'expensive',
