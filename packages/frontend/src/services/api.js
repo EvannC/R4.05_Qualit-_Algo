@@ -6,7 +6,11 @@ export const loginUser = async (username, password) => {
   try {
     const response = await axios.post(`${API_URL}/auth/login`, {
       username,
+<<<<<<< HEAD
       password
+=======
+      password,
+>>>>>>> 2b808a8 (chore: initial project setup)
     });
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -24,16 +28,28 @@ export const registerUser = async (userData) => {
 
 export async function getUsers() {
   const token = localStorage.getItem('token');
+<<<<<<< HEAD
   return axios.get(`${API_URL}/auth/users`, {
     headers: { Authorization: `Bearer ${token}` }
   }).then(response => response.data);
+=======
+  return axios
+    .get(`${API_URL}/auth/users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.data);
+>>>>>>> 2b808a8 (chore: initial project setup)
 }
 
 export const getProducts = async () => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.get(`${API_URL}/products`, {
+<<<<<<< HEAD
       headers: { Authorization: `Bearer ${token}` }
+=======
+      headers: { Authorization: `Bearer ${token}` },
+>>>>>>> 2b808a8 (chore: initial project setup)
     });
 
     const products = response.data.data;
@@ -60,7 +76,11 @@ export const getProducts = async () => {
       processedProducts.push({
         ...product,
         isCheapest,
+<<<<<<< HEAD
         moreExpensiveCount
+=======
+        moreExpensiveCount,
+>>>>>>> 2b808a8 (chore: initial project setup)
       });
     }
 
@@ -74,7 +94,11 @@ export const getProducts = async () => {
 export const createProduct = async (productData) => {
   const token = localStorage.getItem('token');
   const response = await axios.post(`${API_URL}/products`, productData, {
+<<<<<<< HEAD
     headers: { Authorization: `Bearer ${token}` }
+=======
+    headers: { Authorization: `Bearer ${token}` },
+>>>>>>> 2b808a8 (chore: initial project setup)
   });
   return response.data;
 };

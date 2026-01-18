@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { createProduct } from '../services/api';
 
 const AddProduct = () => {
@@ -15,12 +16,31 @@ const AddProduct = () => {
     if(!name || !price || !stock) {
       setError('All fields are required!')
       return
+=======
+
+import { createProduct } from '../services/api';
+
+const AddProduct = () => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [stock, setStock] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name || !price || !stock) {
+      setError('All fields are required!');
+      return;
+>>>>>>> 2b808a8 (chore: initial project setup)
     }
 
     try {
       await createProduct({
         name,
         price: price,
+<<<<<<< HEAD
         stock: stock
       })
       navigate('/products')
@@ -53,6 +73,51 @@ const AddProduct = () => {
         flexDirection: 'column',
         gap: '15px',
       }}>
+=======
+        stock: stock,
+      });
+      navigate('/products');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Failed to create product');
+      console.error('Error creating product:', err);
+    }
+  };
+
+  return (
+    <div
+      style={{
+        maxWidth: '400px',
+        margin: '0 auto',
+        padding: '20px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+        borderRadius: '8px',
+      }}
+    >
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Add New Product</h2>
+
+      {error && (
+        <div
+          style={{
+            color: 'red',
+            marginBottom: '10px',
+            padding: '10px',
+            backgroundColor: '#ffebee',
+            borderRadius: '4px',
+          }}
+        >
+          {error}
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px',
+        }}
+      >
+>>>>>>> 2b808a8 (chore: initial project setup)
         <input
           type="text"
           placeholder="Product Name"
@@ -89,7 +154,11 @@ const AddProduct = () => {
           }}
         />
 
+<<<<<<< HEAD
         <div style={{display: 'flex', gap: '10px'}}>
+=======
+        <div style={{ display: 'flex', gap: '10px' }}>
+>>>>>>> 2b808a8 (chore: initial project setup)
           <button
             type="button"
             onClick={() => navigate('/products')}

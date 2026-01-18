@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -100,3 +101,61 @@ const startServer = async () => {
 startServer();
 
 module.exports = app;
+=======
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const express = require('express');
+
+const db = require('./db/database');
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+function createApp() {
+  const app = express();
+
+  app.use(
+    cors({
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    })
+  );
+
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  app.use('/api/auth', userRoutes);
+  app.use('/api', productRoutes);
+
+  // Error handler (DOIT avoir 4 params)
+  app.use((err, req, res, next) => {
+    console.error(err.stack || err);
+
+    // si une réponse a déjà été envoyée, on laisse Express gérer
+    if (res.headersSent) {
+      return next(err);
+    }
+
+    return res.status(500).json({ error: 'Internal server error' });
+  });
+
+  return app;
+}
+
+async function startServer() {
+  await db.connect();
+
+  const app = createApp();
+  const port = process.env.PORT || 3001;
+
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = { createApp, startServer };
+>>>>>>> 2b808a8 (chore: initial project setup)

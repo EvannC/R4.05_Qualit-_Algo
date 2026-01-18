@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../services/api';
@@ -40,28 +41,103 @@ const Login = ({ onLogin }) => {
         flexDirection: 'column',
         gap: '15px',
       }}>
+=======
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { loginUser } from '../services/api';
+
+const Login = ({ onLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await loginUser(username, password);
+      onLogin();
+      navigate('/products');
+    } catch (err) {
+      setError(err?.error || 'An error occurred');
+    }
+  };
+
+  return (
+    <div
+      style={{
+        maxWidth: '400px',
+        margin: '0 auto',
+        padding: '20px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+        borderRadius: '8px',
+      }}
+    >
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Login</h2>
+
+      {error && (
+        <div
+          style={{
+            color: 'red',
+            marginBottom: '10px',
+            padding: '10px',
+            backgroundColor: '#ffebee',
+            borderRadius: '4px',
+          }}
+        >
+          {error}
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px',
+        }}
+      >
+>>>>>>> 2b808a8 (chore: initial project setup)
         <input
           type="text"
           placeholder="Username"
           value={username}
+<<<<<<< HEAD
           onChange={e => setUsername(e.target.value)}
+=======
+          onChange={(e) => setUsername(e.target.value)}
+>>>>>>> 2b808a8 (chore: initial project setup)
           style={{
             padding: '8px',
             borderRadius: '4px',
             border: '1px solid #ddd',
           }}
         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b808a8 (chore: initial project setup)
         <input
           type="password"
           placeholder="Password"
           value={password}
+<<<<<<< HEAD
           onChange={e => setPassword(e.target.value)}
+=======
+          onChange={(e) => setPassword(e.target.value)}
+>>>>>>> 2b808a8 (chore: initial project setup)
           style={{
             padding: '8px',
             borderRadius: '4px',
             border: '1px solid #ddd',
           }}
         />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b808a8 (chore: initial project setup)
         <button
           type="submit"
           style={{
@@ -76,14 +152,32 @@ const Login = ({ onLogin }) => {
           Login
         </button>
       </form>
+<<<<<<< HEAD
       <p style={{
         textAlign: 'center',
         marginTop: '20px',
       }}>
         Don't have an account? <Link to="/register">Register</Link>
+=======
+
+      <p
+        style={{
+          textAlign: 'center',
+          marginTop: '20px',
+        }}
+      >
+        Don&apos;t have an account? <Link to="/register">Register</Link>
+>>>>>>> 2b808a8 (chore: initial project setup)
       </p>
     </div>
   );
 };
 
+<<<<<<< HEAD
+=======
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
+
+>>>>>>> 2b808a8 (chore: initial project setup)
 export default Login;
